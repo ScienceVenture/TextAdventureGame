@@ -23,7 +23,7 @@ void setup(){
 
     scheduler_init();
 
-    scheduler_start_task(0, 500, display_update_wrapper);
+    scheduler_start_task(0, 250, display_update_wrapper);
 
     display->set_message(S,20);
 

@@ -27,19 +27,39 @@ void Display::update(){
 void Display::set_message(char s[], uint8_t len){
 
     strcpy(this->message, s); 
-    this->message_length = len; 
+
+    if(this->message_length > this->disp_width){
+
+        //pad the message with spaces for scrolling...
+
+        uint8_t i = 0; 
+
+        for(i = 0; i < this->disp_width; i++){
+            this->message[len+i] = ' ';
+        }
+        this->message_length = len + i; 
+        this->message[this->message_length] ='\0'; 
+
+    }else{
+        this->message_length = len; 
+    }
+
 }
 
 void Display::write(){
 
     this->lcd->clear();
 
+    // Handle case where message fits within the screen size.
+    //
     if(this->message_length < this->disp_width){
 
         this->lcd->setCursor(0,0);
         this->lcd->print(this->message);
 
-    }else{
+    }else{ 
+
+        // Case where message must scroll to be shown.
 
         uint8_t i = 0,message_start = 0; 
 
@@ -48,7 +68,7 @@ void Display::write(){
             return;
         }
 
-        if(this->counter < this->disp_width){
+        if(this->counter <= this->disp_width){
             this->lcd->setCursor(this->disp_width - this->counter, 0);
             message_start = 0; 
 
