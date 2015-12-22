@@ -15,13 +15,17 @@ void display_update_wrapper(){
 
 }
 
+char S[20] = "the quick brown fox";
+
 void setup(){
 
     display = new Display(DISP_WIDTH, DISP_HEIGHT);
 
     scheduler_init();
 
-    scheduler_start_task(0, 100, display_update_wrapper);
+    scheduler_start_task(0, 500, display_update_wrapper);
+
+    display->set_message(S,20);
 
 }
 
@@ -34,3 +38,16 @@ void loop(){
     }
 
 }
+/*
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(8,9,4,5,6,7);
+
+void setup()
+{
+  lcd.begin(16,2);
+  lcd.print("hello, world!");
+}
+
+void loop() {}
+*/

@@ -10,6 +10,12 @@ Display::Display(uint8_t width, uint8_t height){
     // 
     this->lcd = new LiquidCrystal(8,9,4,5,6,7);
 
+    this->lcd->begin(this->disp_width, this->disp_height);
+
+    this->lcd->clear();
+
+    this->lcd->noAutoscroll();
+
     this->counter = 0; 
 
 }
@@ -18,24 +24,46 @@ void Display::update(){
     this->write(); 
 }
 
+void Display::set_message(char s[], uint8_t len){
+
+    strcpy(this->message, s); 
+    this->message_length = len; 
+}
+
 void Display::write(){
-    
-    this->lcd->setCursor(0,0);
 
-    if(this->counter < 10){
+    this->lcd->clear();
 
-        this->lcd->print("Hello");
-        this->counter++; 
+    if(this->message_length < this->disp_width){
 
-    }else if(this->counter < 20){
- 
-        this->lcd->print("World");
-        this->counter++; 
+        this->lcd->setCursor(0,0);
+        this->lcd->print(this->message);
 
     }else{
 
-        this->counter = 0; 
+        uint8_t i = 0,message_start = 0; 
+
+        if(this->counter >= this->message_length){
+            this->counter = 0; 
+            return;
+        }
+
+        if(this->counter < this->disp_width){
+            this->lcd->setCursor(this->disp_width - this->counter, 0);
+            message_start = 0; 
+
+        }else{
+            this->lcd->setCursor(0,0);
+            message_start = this->counter - this->disp_width;
+        }
+
+        for(i = message_start; i < this->counter; i++){
+            this->lcd->write(this->message[i]);
+        }
+
+        counter++;
 
     }
 
+    
 }
