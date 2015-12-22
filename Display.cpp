@@ -1,9 +1,9 @@
 #include "Display.h"
 
-Display::Display(uint8_t width, uint8_t height){
+Display::Display(){
 
-    this->disp_width = width;
-    this->disp_height = height; 
+    this->disp_width = DISP_WIDTH;
+    this->disp_height = DISP_HEIGHT; 
 
     // Configure Liquid Crystal display as per: 
     //      https://www.arduino.cc/en/Reference/LiquidCrystalConstructor
@@ -24,9 +24,9 @@ void Display::update(){
     this->write(); 
 }
 
-void Display::set_message(char s[], uint8_t len){
+void Display::set_message(char s[], uint8_t len, uint8_t line){
 
-    strcpy(this->message, s); 
+    strcpy(this->message[line], s); 
 
     if(len > this->disp_width){
 
@@ -35,14 +35,14 @@ void Display::set_message(char s[], uint8_t len){
         uint8_t i = 0; 
 
         for(i = 0; i < this->disp_width; i++){
-            this->message[len+i] = ' ';
+            this->message[line][len+i] = ' ';
         }
-        this->message_length = len + i; 
-        this->message[this->message_length] ='\0'; 
+        this->message_lengths[line] = len + i; 
+        this->message[line][this->message_lengths[line]] ='\0'; 
 
     }else{
 
-        this->message_length = len; 
+        this->message_lengths[line] = len; 
 
     }
 
@@ -52,39 +52,46 @@ void Display::write(){
 
     this->lcd->clear();
 
-    // Handle case where message fits within the screen size.
-    //
-    if(this->message_length < this->disp_width){
+    uint8_t line = 0;
+    for(line = 0; line < this->disp_height; line++){
 
-        this->lcd->setCursor(0,0);
-        this->lcd->print(this->message);
+        // Handle case where message fits within the screen size.
+        //
+        if(this->message_lengths[line] < this->disp_width){
 
-    }else{ 
+            this->lcd->setCursor(0,line);
+            this->lcd->print(this->message[line]);
 
-        // Case where message must scroll to be shown.
+        }else{ 
 
-        uint8_t i = 0,message_start = 0; 
+            // Case where message must scroll to be shown.
 
-        if(this->counter >= this->message_length){
-            this->counter = 0; 
-            return;
+            uint8_t i = 0,message_start = 0; 
+
+            if(this->counter >= this->message_lengths[line]){
+                this->counter = 0; 
+                return;
+            }
+
+            if(this->counter <= this->disp_width){
+                this->lcd->setCursor(this->disp_width - this->counter, line);
+                message_start = 0; 
+
+            }else{
+                this->lcd->setCursor(0,line);
+                message_start = this->counter - this->disp_width;
+            }
+
+            for(i = message_start; i < this->counter; i++){
+                this->lcd->write(this->message[line][i]);
+            }
+
+
         }
-
-        if(this->counter <= this->disp_width){
-            this->lcd->setCursor(this->disp_width - this->counter, 0);
-            message_start = 0; 
-
-        }else{
-            this->lcd->setCursor(0,0);
-            message_start = this->counter - this->disp_width;
-        }
-
-        for(i = message_start; i < this->counter; i++){
-            this->lcd->write(this->message[i]);
-        }
-
-        counter++;
 
     }
+
+    counter++;
+
     
 }

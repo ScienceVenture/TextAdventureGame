@@ -1,19 +1,21 @@
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
+#define DISP_WIDTH 16
+#define DISP_HEIGHT 2
+
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 
 class Display{
 
     public: 
-        Display(uint8_t width, uint8_t height);
+        Display();
 
         //force a display update
         void update();
 
-        void set_message(char s[], uint8_t len);
-
+        void set_message(char s[], uint8_t len, uint8_t line);
 
     private: 
 
@@ -22,8 +24,8 @@ class Display{
         uint8_t disp_width;
         uint8_t disp_height;
 
-        char message[128];
-        uint8_t message_length;
+        char message[DISP_HEIGHT][128];
+        uint8_t message_lengths[DISP_HEIGHT];
 
         uint32_t counter;
 

@@ -23,11 +23,13 @@ void text_changer(){
 
     if(i == 0){
 
-        display->set_message(S1,19);
+        display->set_message(S1,19,0);
+        display->set_message(S2,5,1);
 
     }else if(i == 10){
 
-        display->set_message(S2,5);
+        display->set_message(S2,5,0);
+        display->set_message(S1,19,1);
 
     }
 
@@ -44,14 +46,14 @@ void text_changer(){
 
 void setup(){
 
-    display = new Display(DISP_WIDTH, DISP_HEIGHT);
+    display = new Display();
 
     scheduler_init();
 
     scheduler_start_task(0, 250, display_update_wrapper);
     scheduler_start_task(50, 250, text_changer);
 
-    display->set_message(S1,19);
+    //display->set_message(S1,19);
 
 }
 
