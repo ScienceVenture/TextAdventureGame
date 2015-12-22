@@ -15,7 +15,32 @@ void display_update_wrapper(){
 
 }
 
-char S[20] = "the quick brown fox";
+uint16_t i = 0; 
+char S1[20] = "the quick brown fox";
+char S2[6] = "hello";
+
+void text_changer(){
+
+    if(i == 0){
+
+        display->set_message(S1,19);
+
+    }else if(i == 10){
+
+        display->set_message(S2,5);
+
+    }
+
+    if(i > 20){
+
+        i = 0;  
+
+    }else{
+        i++;
+    }
+
+}
+
 
 void setup(){
 
@@ -24,8 +49,9 @@ void setup(){
     scheduler_init();
 
     scheduler_start_task(0, 250, display_update_wrapper);
+    scheduler_start_task(50, 250, text_changer);
 
-    display->set_message(S,19);
+    display->set_message(S1,19);
 
 }
 

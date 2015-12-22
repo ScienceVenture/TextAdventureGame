@@ -28,7 +28,7 @@ void Display::set_message(char s[], uint8_t len){
 
     strcpy(this->message, s); 
 
-    if(this->message_length > this->disp_width){
+    if(len > this->disp_width){
 
         //pad the message with spaces for scrolling...
 
@@ -41,7 +41,9 @@ void Display::set_message(char s[], uint8_t len){
         this->message[this->message_length] ='\0'; 
 
     }else{
+
         this->message_length = len; 
+
     }
 
 }
@@ -84,6 +86,5 @@ void Display::write(){
         counter++;
 
     }
-
     
 }
