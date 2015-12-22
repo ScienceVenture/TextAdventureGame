@@ -25,7 +25,7 @@ void setup(){
 
     scheduler_start_task(0, 250, display_update_wrapper);
 
-    display->set_message(S,20);
+    display->set_message(S,19);
 
 }
 
@@ -38,16 +38,3 @@ void loop(){
     }
 
 }
-/*
-#include <LiquidCrystal.h>
-
-LiquidCrystal lcd(8,9,4,5,6,7);
-
-void setup()
-{
-  lcd.begin(16,2);
-  lcd.print("hello, world!");
-}
-
-void loop() {}
-*/
