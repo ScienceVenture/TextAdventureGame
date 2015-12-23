@@ -18,6 +18,15 @@ Display::Display(){
 
     this->counter = 0; 
 
+    uint8_t i = 0; 
+
+    for(i = 0; i < this->disp_height; i++){
+
+        this->message_lengths[i] = 0; 
+        this->message[i][0] = '\0';
+
+    }
+
 }
 
 void Display::update(){
