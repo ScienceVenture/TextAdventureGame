@@ -44,13 +44,7 @@ uint32_t scheduler_dispatch(){
     task_callback t = NULL; 
     uint32_t idle_time = 0xFFFFFFFF; 
     
-    //Serial.print("Elapsed: ");
-    //Serial.println(elapsed);
-    
     for(i = 0; i < MAXTASKS; i++){
-        //Serial.print(tasks[i].period);
-        //Serial.print(" : ");
-        //Serial.println(tasks[i].remaining_time);
         if(tasks[i].is_running){
             tasks[i].remaining_time -= elapsed; 
             if(tasks[i].remaining_time <= 0){
@@ -61,19 +55,14 @@ uint32_t scheduler_dispatch(){
                 idle_time = 0; 
             }else{
               idle_time = min((uint32_t)tasks[i].remaining_time, idle_time); 
-              //Serial.print("Setting idle time: ");
-              //Serial.println(idle_time);
             }
         }
     }
     if(t != NULL){
-        //Serial.println("Running task");
         digitalWrite(13, HIGH);
         t(); 
         digitalWrite(13, LOW);
     }
-    //Serial.print("Returning idle time: ");
-    //Serial.println(idle_time);
     return idle_time; 
 }
 
