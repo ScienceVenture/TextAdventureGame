@@ -31,6 +31,7 @@ class Space {
 
         char name[MAX_STRING_LEN];
 
+        uint8_t space_id; 
         uint8_t adjacent_spaces_count;
         uint8_t num_objects;
 
@@ -38,6 +39,7 @@ class Space {
         Object objects[MAX_OBJECTS];
 
     public:
+
         Space();
 
         void set_name(const char name[]);
@@ -48,6 +50,10 @@ class Space {
 
         Space * get_adjacent(uint8_t index);
 
+        uint8_t get_id(); 
+
+        void set_id(uint8_t id);
+
         void init(); 
 };
 
@@ -56,19 +62,27 @@ class Space {
 */
 class Map {
     private:
+
         uint8_t num_spaces; 
 
         Space * root_space; 
 
         Space spaces[MAX_SPACES];
+
+        int8_t find_unused_id(); 
+
     public:
+
         Map();
+
+        Space * add_space(const char S[], uint8_t id);
 
         Space * add_space(const char S[]);
 
         void set_root(Space * s); 
 
         Space * get_root(); 
+
 };
 
 

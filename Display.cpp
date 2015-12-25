@@ -33,6 +33,11 @@ void Display::update(){
     this->write(); 
 }
 
+void Display::error(char s[]){
+    this->set_message(s, strlen(s), 0);
+    this->set_message((char *)EMPTY_STRING, 0, 1);
+}
+
 void Display::set_message(char s[], uint8_t len, uint8_t line){
 
     strcpy(this->message[line], s); 
@@ -101,6 +106,4 @@ void Display::write(){
     }
 
     counter++;
-
-    
 }

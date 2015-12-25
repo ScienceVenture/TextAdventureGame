@@ -8,7 +8,16 @@ class GameDisplay{
     public:
         GameDisplay();
 
+        void error(const char * S);
+
+        void say(const char * S);
+
+        void update(){
+            this->display->update();
+        }
+
     private:
+        
         Display * display;
 
 };

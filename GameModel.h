@@ -11,11 +11,15 @@ class GameModel {
 
         Map * map; 
 
+        Space * current_space; 
+
     public:
 
         GameModel();
 
         Map * build_map(); 
+
+        Space * get_current_space();
 };
 
 

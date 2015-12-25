@@ -6,6 +6,7 @@
 
 #include <Arduino.h>
 #include <LiquidCrystal.h>
+#include "Error.h"
 
 class Display{
 
@@ -16,6 +17,8 @@ class Display{
         void update();
 
         void set_message(char s[], uint8_t len, uint8_t line);
+
+        void error(char s[]);
 
     private: 
 
