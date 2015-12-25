@@ -6,7 +6,7 @@
 #include "Error.h"
 
 #define DISPLAY_UPDATE_RATE 400
-#define GAME_LOOP_RATE 100
+#define GAME_LOOP_RATE 200
 
 // Global variables 
 //
@@ -28,7 +28,7 @@ void setup(){
     // DO NOT CHANGE THIS CODE
 
     GM = new GameModel();  // Model
-    GM->build_map(); 
+    GM->init(); 
     display = new GameDisplay(); // View
     G = new Game(GM, display); // Control
 

@@ -4,26 +4,56 @@
 #include <Arduino.h>
 #include "Map.h"
 
+#define NORTH 0
+#define EAST 1
+#define SOUTH 2
+#define WEST 3
+
 
 class GameModel {
 
     private:
 
         Map * map; 
-
         Space * current_space; 
-
-    public:
-
-        GameModel();
 
         Map * build_map(); 
 
-        Space * get_current_space();
+    public:
 
-        void change_space(Space * s){
-            this->current_space = s; 
+        GameModel(){
+            this->map = new Map(); 
+            this->current_space = this->map->get_root(); 
         }
+
+        Space * get_current_space(){ return this->current_space; }
+
+        void change_space(Space * s){ this->current_space = s; }
+
+        void move_north(){ this->change_space(NORTH); } 
+        void move_east(){ this->change_space(EAST); } 
+        void move_south(){ this->change_space(SOUTH); } 
+        void move_west(){ this->change_space(WEST); } 
+
+        Map * init(){
+            Map * M = this->build_map(); 
+            this->current_space = M->get_root(); 
+            return M; 
+        }
+
+};
+
+class Player {
+    private:
+        GameModel * M; 
+    public: 
+
+        Player(); 
+
+        void move_north(){ this->M->move_north(); } 
+        void move_east(){ this->M->move_east(); } 
+        void move_south(){ this->M->move_south(); } 
+        void move_west(){ this->M->move_west(); } 
 };
 
 

@@ -12,7 +12,10 @@ class Game{
 
     public:
 
-        Game(GameModel * gm, GameDisplay * d);
+        Game(GameModel * gm, GameDisplay * d){
+            this->game_model = gm;  
+            this->display = d;
+        };
 
         void state_machine(); 
 
@@ -20,6 +23,8 @@ class Game{
 
         GameDisplay * display; 
         GameModel * game_model; 
+        Player * player; 
+
 
 };
 
