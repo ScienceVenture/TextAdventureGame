@@ -13,9 +13,9 @@ Map * GameModel::build_map(){
 
     // 1) Create spaces...
     //
-    Space * space_1 = this->map->add_space("Space One");
-    Space * space_2 = this->map->add_space("Space Two");
-    Space * space_3 = this->map->add_space("Space Three");
+    Space * space_1 = this->map->add_space("Space One", 1);
+    Space * space_2 = this->map->add_space("Space Two", 2);
+    Space * space_3 = this->map->add_space("Space Three", 3);
 
     if(space_1 == NULL || space_2 == NULL || space_3 == NULL) return NULL; 
 
@@ -23,6 +23,8 @@ Map * GameModel::build_map(){
     //
     space_1->add_adjacent(space_2);
     space_1->add_adjacent(space_3);
+    
+    space_2->add_adjacent(space_1);
 
     // 3) Set the map root. 
     //

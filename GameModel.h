@@ -20,6 +20,10 @@ class GameModel {
         Map * build_map(); 
 
         Space * get_current_space();
+
+        void change_space(Space * s){
+            this->current_space = s; 
+        }
 };
 
 

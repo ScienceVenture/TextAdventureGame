@@ -5,6 +5,9 @@
 #include "Game.h"
 #include "Error.h"
 
+#define DISPLAY_UPDATE_RATE 400
+#define GAME_LOOP_RATE 100
+
 // Global variables 
 //
 GameDisplay * display = NULL; 
@@ -30,8 +33,8 @@ void setup(){
     G = new Game(GM, display); // Control
 
     scheduler_init();
-    scheduler_start_task(0, 200, display_update_wrapper);
-    scheduler_start_task(50, 100, game_loop);
+    scheduler_start_task(0, DISPLAY_UPDATE_RATE, display_update_wrapper);
+    scheduler_start_task(50, GAME_LOOP_RATE, game_loop);
 
 }
 

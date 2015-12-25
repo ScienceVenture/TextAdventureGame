@@ -4,6 +4,13 @@
 #define DISP_WIDTH 16
 #define DISP_HEIGHT 2
 
+#define NO_BUTTON 0 
+#define BUTTON_SELECT 1
+#define BUTTON_UP 2
+#define BUTTON_DOWN 3
+#define BUTTON_LEFT 4
+#define BUTTON_RIGHT 5
+
 #include <Arduino.h>
 #include <LiquidCrystal.h>
 #include "Error.h"
@@ -19,6 +26,8 @@ class Display{
         void set_message(char s[], uint8_t len, uint8_t line);
 
         void error(char s[]);
+
+        uint8_t read_button(); 
 
     private: 
 

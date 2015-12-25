@@ -33,6 +33,21 @@ void Display::update(){
     this->write(); 
 }
 
+uint8_t Display::read_button(){
+
+    int adc_key_in = analogRead(0); 
+
+    if (adc_key_in > 1000) return NO_BUTTON; 
+    if (adc_key_in < 50)   return BUTTON_RIGHT;  
+    if (adc_key_in < 250)  return BUTTON_UP; 
+    if (adc_key_in < 450)  return BUTTON_DOWN; 
+    if (adc_key_in < 650)  return BUTTON_LEFT; 
+    if (adc_key_in < 850)  return BUTTON_SELECT;  
+
+    return NO_BUTTON;
+
+}
+
 void Display::error(char s[]){
     this->set_message(s, strlen(s), 0);
     this->set_message((char *)EMPTY_STRING, 0, 1);

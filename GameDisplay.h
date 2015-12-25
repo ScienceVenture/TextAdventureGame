@@ -16,6 +16,12 @@ class GameDisplay{
             this->display->update();
         }
 
+        uint8_t read_button(){
+            return this->display->read_button(); 
+        }
+
+        void ask_input(const char * S);
+
     private:
         
         Display * display;
