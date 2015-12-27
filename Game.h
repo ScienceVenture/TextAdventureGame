@@ -15,6 +15,7 @@ class Game{
         Game(GameModel * gm, GameDisplay * d){
             this->game_model = gm;  
             this->display = d;
+            this->player = new Player(gm);
         };
 
         void state_machine(); 

@@ -6,7 +6,7 @@
 #include "Error.h"
 
 #define DISPLAY_UPDATE_RATE 400
-#define GAME_LOOP_RATE 200
+#define GAME_LOOP_RATE 100
 
 // Global variables 
 //

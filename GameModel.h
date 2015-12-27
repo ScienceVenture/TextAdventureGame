@@ -30,6 +30,8 @@ class GameModel {
 
         void change_space(Space * s){ this->current_space = s; }
 
+        void change_space(int i){ this->current_space = this->current_space->get_adjacent(i); }
+
         void move_north(){ this->change_space(NORTH); } 
         void move_east(){ this->change_space(EAST); } 
         void move_south(){ this->change_space(SOUTH); } 
@@ -48,7 +50,11 @@ class Player {
         GameModel * M; 
     public: 
 
-        Player(); 
+        Player(GameModel * m){
+            this->M = m; 
+        } 
+
+        Space * get_current_space(){ return this->M->get_current_space(); }
 
         void move_north(){ this->M->move_north(); } 
         void move_east(){ this->M->move_east(); } 
