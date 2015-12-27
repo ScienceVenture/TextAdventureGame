@@ -28,9 +28,9 @@ void setup(){
     // DO NOT CHANGE THIS CODE
 
     GM = new GameModel();  // Model
-    GM->init(); 
     display = new GameDisplay(); // View
     G = new Game(GM, display); // Control
+    G->init(); 
 
     scheduler_init();
     scheduler_start_task(0, DISPLAY_UPDATE_RATE, display_update_wrapper);

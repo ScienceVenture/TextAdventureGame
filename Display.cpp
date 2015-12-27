@@ -29,26 +29,8 @@ Display::Display(){
 
 }
 
-void Display::update(){
-    this->write(); 
-}
+void Display::update(){ this->write(); }
 
-/*
-uint8_t Display::read_button(){
-
-    int adc_key_in = analogRead(0); 
-
-    if (adc_key_in > 1000) return NO_BUTTON; 
-    if (adc_key_in < 50)   return BUTTON_RIGHT;  
-    if (adc_key_in < 250)  return BUTTON_UP; 
-    if (adc_key_in < 450)  return BUTTON_DOWN; 
-    if (adc_key_in < 650)  return BUTTON_LEFT; 
-    if (adc_key_in < 850)  return BUTTON_SELECT;  
-
-    return NO_BUTTON;
-
-}
-*/
 
 uint8_t Display::read_button(){
 
@@ -72,54 +54,57 @@ uint8_t Display::read_button(){
 
 uint8_t Display::_read_button() {
 
-   unsigned int buttonVoltage;
-   uint8_t button = BUTTON_NONE;   // return no button pressed if the below checks don't write to btn
-   
-   //read the button ADC pin voltage
-   buttonVoltage = analogRead( BUTTON_ADC_PIN );
-   //sense if the voltage falls within valid voltage windows
-   if( buttonVoltage < ( RIGHT_10BIT_ADC + BUTTON_TOLERANCE ) )
-   {
+    // Code snippet take from: http://eturnerx.com/files/arduino/003_wumpus_hunt_eturnerx_arduino_lcd.html
+
+    unsigned int buttonVoltage;
+
+    uint8_t button = BUTTON_NONE;   // return no button pressed if the below checks don't write to btn
+
+    //read the button ADC pin voltage
+    buttonVoltage = analogRead( BUTTON_ADC_PIN );
+
+    //sense if the voltage falls within valid voltage windows
+    if( buttonVoltage < ( RIGHT_10BIT_ADC + BUTTON_TOLERANCE ) ){
       button = BUTTON_RIGHT;
-   }
-   else if(   buttonVoltage >= ( UP_10BIT_ADC - BUTTON_TOLERANCE )
+    }
+    else if(   buttonVoltage >= ( UP_10BIT_ADC - BUTTON_TOLERANCE )
            && buttonVoltage <= ( UP_10BIT_ADC + BUTTON_TOLERANCE ) )
-   {
+    {
       button = BUTTON_UP;
-   }
-   else if(   buttonVoltage >= ( DOWN_10BIT_ADC - BUTTON_TOLERANCE )
+    }
+    else if(   buttonVoltage >= ( DOWN_10BIT_ADC - BUTTON_TOLERANCE )
            && buttonVoltage <= ( DOWN_10BIT_ADC + BUTTON_TOLERANCE ) )
-   {
+    {
       button = BUTTON_DOWN;
-   }
-   else if(   buttonVoltage >= ( LEFT_10BIT_ADC - BUTTON_TOLERANCE )
+    }
+    else if(   buttonVoltage >= ( LEFT_10BIT_ADC - BUTTON_TOLERANCE )
            && buttonVoltage <= ( LEFT_10BIT_ADC + BUTTON_TOLERANCE ) )
-   {
+    {
       button = BUTTON_LEFT;
-   }
-   else if(   buttonVoltage >= ( SELECT_10BIT_ADC - BUTTON_TOLERANCE )
+    }
+    else if(   buttonVoltage >= ( SELECT_10BIT_ADC - BUTTON_TOLERANCE )
            && buttonVoltage <= ( SELECT_10BIT_ADC + BUTTON_TOLERANCE ) )
-   {
+    {
       button = BUTTON_SELECT;
-   }
-   //handle button flags for just pressed and just released events
-   if( ( buttonWas == BUTTON_NONE ) && ( button != BUTTON_NONE ) )
-   {
+    }
+
+    //handle button flags for just pressed and just released events
+    if( ( buttonWas == BUTTON_NONE ) && ( button != BUTTON_NONE ) ){
       //the button was just pressed, set buttonJustPressed, this can optionally be used to trigger a once-off action for a button press event
       //it's the duty of the receiver to clear these flags if it wants to detect a new button change event
       buttonJustPressed  = true;
       buttonJustReleased = false;
-   }
-   if( ( buttonWas != BUTTON_NONE ) && ( button == BUTTON_NONE ) )
-   {
+    }
+
+    if( ( buttonWas != BUTTON_NONE ) && ( button == BUTTON_NONE ) ){
       buttonJustPressed  = false;
       buttonJustReleased = true;
-   }
-   
-   //save the latest button value, for change event detection next time round
-   buttonWas = button;
-   
-   return( button );
+    }
+
+    //save the latest button value, for change event detection next time round
+    buttonWas = button;
+
+    return( button );
 }
 
 void Display::error(char s[]){

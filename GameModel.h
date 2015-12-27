@@ -32,6 +32,12 @@ class GameModel {
 
         void change_space(int i){ this->current_space = this->current_space->get_adjacent(i); }
 
+        Space * add_space(const char * S, uint8_t id){ return this->map->add_space(S, id); }
+
+        void set_root(Space * S){ this->map->set_root(S); }
+
+        Space * get_root(){ return this->map->get_root(); }
+
         void move_north(){ this->change_space(NORTH); } 
         void move_east(){ this->change_space(EAST); } 
         void move_south(){ this->change_space(SOUTH); } 
