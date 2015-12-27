@@ -41,8 +41,12 @@ class Game{
 
         Space * add_space(const char * S, uint8_t id){ return this->game_model->add_space(S, id); }
 
-        void set_root(Space * S){ this->game_model->set_root(S); }
+        void set_start(Space * S){ this->game_model->set_root(S); }
 
+        // Connects the spaces src->dest in the graph.
+        // Uses dir as the index in the adjacency array.
+        // 
+        void connect(Space * src, Space * dest, uint8_t dir){ src->add_adjacent(dest, dir); }
 
 
 };

@@ -17,17 +17,17 @@ void Game::build_map(){
 
     // 2) Connect spaces
     //
-    start->add_adjacent(space_1);
-    space_1->add_adjacent(space_2);
-    space_2->add_adjacent(space_3);
-    space_3->add_adjacent(space_4);
-    space_4->add_adjacent(space_5);
-    space_5->add_adjacent(space_6);
-    space_6->add_adjacent(end);
+    connect(start, space_1, NORTH);
+    connect(space_1, space_2, NORTH);
+    connect(space_2, space_3, NORTH);
+    connect(space_3, space_4, NORTH);
+    connect(space_4, space_5, NORTH);
+    connect(space_5, space_6, NORTH);
+    connect(space_6, end, NORTH);
 
     // 3) Set the map root, i.e. the start of the game. 
     //
-    set_root(start);
+    set_start(start);
 
 }
 

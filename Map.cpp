@@ -74,7 +74,7 @@ Space::Space(){}
 
 Space * Space::get_adjacent(uint8_t index){
 
-    if(index >= this->adjacent_spaces_count || index >= MAX_ADJ_SPACES) return NULL;
+    if(index >= MAX_ADJ_SPACES) return NULL;
 
     return this->adjacent_spaces[index];
 
@@ -90,8 +90,8 @@ char * Space::get_name(){
     return this->name; 
 }
 
-void Space::add_adjacent(Space * dest){
-    this->adjacent_spaces[this->adjacent_spaces_count] = dest;
+void Space::add_adjacent(Space * dest, uint8_t i){
+    this->adjacent_spaces[i] = dest;
     this->adjacent_spaces_count++;
 }
 
@@ -106,6 +106,12 @@ void Space::set_id(uint8_t id){
 void Space::init(){
 
     this->adjacent_spaces_count = 0; 
+
+    uint8_t i = 0; 
+    for(i=0; i < MAX_ADJ_SPACES; i++){
+        this->adjacent_spaces[i] = NULL; 
+    }
+
     this->space_id = 0; 
 
 }

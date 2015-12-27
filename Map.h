@@ -46,7 +46,10 @@ class Space {
 
         char * get_name();
 
-        void add_adjacent(Space * dest);
+        // Add a connection from this space to the destination using 
+        // @param i to index into the adjacent_spaces array. 
+        //
+        void add_adjacent(Space * dest, uint8_t i);
 
         Space * get_adjacent(uint8_t index);
 

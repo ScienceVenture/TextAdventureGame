@@ -4,9 +4,47 @@ A code based created for Science Venture's RetroGaming program. This framework w
 
 ## Getting Started
 
-There are two steps: 
+There are two steps to getting a simple game started. A simple example is provided: 
 
-1. Define the map that will be used in the game. Fill out the `GameModel::build_map()` function  
+**Step 1:** Define the map that will be used in the game. Fill out the `Game::build_map()` within `Game.cpp`. 
+
+```
+void Game::build_map(){
+    Space * start = add_space("Start", 0);
+    Space * space_1 = add_space("Room 1", 1);
+    Space * space_2 = add_space("Room 2", 2);
+    Space * space_3 = add_space("Room 3", 3);
+    Space * space_4 = add_space("Room 4", 4);
+    Space * space_5 = add_space("Room 5", 5);
+    Space * space_6 = add_space("Room 6", 6);
+    Space * end = add_space("End", 7);
+    connect(start, space_1, NORTH);
+    connect(space_1, space_2, NORTH);
+    connect(space_2, space_3, NORTH);
+    connect(space_3, space_4, NORTH);
+    connect(space_4, space_5, NORTH);
+    connect(space_5, space_6, NORTH);
+    connect(space_6, end, NORTH);
+    set_root(start);
+}
+```
+
+**Step 2:** Create the state-machine that defines the game flow. Fill out `Game::state_machine()` within `Game.cpp`.
+
+```
+void Game::state_machine(){
+    uint8_t button = display->read_button();
+    Space * current_space = player->get_current_space(); 
+    if(current_space->get_id() == 7){
+        display->say("You Win!");
+    }else{
+        display->say(current_space->get_name());
+        if(button == BUTTON_UP){
+            player->move_north();
+        }
+    }
+}
+```
 
 ## Code Structure
 
